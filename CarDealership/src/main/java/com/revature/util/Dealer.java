@@ -10,4 +10,6 @@ public class Dealer {
 	ArrayList<User> userList = new ArrayList<User>();
 	ArrayList<Car> carList = new ArrayList<Car>();
 	ArrayList<Offer> offerList = new ArrayList<Offer>();
+	
+	
 }

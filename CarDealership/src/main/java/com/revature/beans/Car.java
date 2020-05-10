@@ -1,7 +1,7 @@
 package com.revature.beans;
 
 public class Car {
-	String make, model, color;
+	String make, model;
 	int id;
 	
 	public String getMake() {
@@ -16,12 +16,6 @@ public class Car {
 	public void setModel(String model) {
 		this.model = model;
 	}
-	public String getColor() {
-		return color;
-	}
-	public void setColor(String color) {
-		this.color = color;
-	}
 	public int getId() {
 		return id;
 	}
@@ -31,6 +25,6 @@ public class Car {
 	
 	@Override
 	public String toString() {
-		return "Car [make=" + make + ", model=" + model + ", color=" + color + ", id=" + id + "]";
+		return "Car [make=" + make + ", model=" + model + ", id=" + id + "]";
 	}
 }
