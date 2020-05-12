@@ -11,5 +11,9 @@ public class Dealer {
 	ArrayList<Car> carList = new ArrayList<Car>();
 	ArrayList<Offer> offerList = new ArrayList<Offer>();
 	
-	
+	public User login() {
+		
+		
+		return null;
+	}
 }

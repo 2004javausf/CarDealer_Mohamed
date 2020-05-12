@@ -2,8 +2,15 @@ package com.revature.beans;
 
 public class Car {
 	String make, model;
-	int id;
+	double payment;
+	int years, id;	//years = number of years in car's payment plan
 	
+	public int getYears() {
+		return years;
+	}
+	public void setYears(int years) {
+		this.years = years;
+	}
 	public String getMake() {
 		return make;
 	}
