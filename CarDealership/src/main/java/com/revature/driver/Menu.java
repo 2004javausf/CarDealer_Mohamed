@@ -15,7 +15,7 @@ public class Menu {
 	public Menu(String title, String...menuItems) {
 		this.title = title;
 		
-		// Cycles through the user inputs to add the list
+		//cycle through the user inputs to add the list
 		for (String item : menuItems)
 			this.items.add(item);
 	}

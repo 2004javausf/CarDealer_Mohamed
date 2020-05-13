@@ -1,24 +1,19 @@
 package com.revature.beans;
 
-import java.io.Serializable;
-
-public class User implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7729831625169647910L;
+public class User {
 	String username, password;
 	boolean isAdmin;
 	int id;
 
-	public User(String username, String password, int isAdmin, int id) {
-		super();
+	public User(int id, String username, String password, int isAdmin) {
+		this.id = id;
 		this.username = username;
 		this.password = password;
-		this.isAdmin = (isAdmin == 1);
-		this.id = id;
+		this.isAdmin = (isAdmin == 1);	//1 in DB if user is an admin
 	}
 	
+	public User() {}
+
 	public String getUsername() {
 		return username;
 	}
@@ -43,7 +38,7 @@ public class User implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", password=" + password + ", id=" + id + "]";
+		return "User [username=" + username + ", password=" + password + ", isAdmin=" + isAdmin + ", id=" + id + "]";
 	}
 	
 }

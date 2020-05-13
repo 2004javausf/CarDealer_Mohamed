@@ -12,7 +12,7 @@ import com.revature.beans.Car;
 import com.revature.beans.Offer;
 import com.revature.beans.User;
 
-public class DBreader implements DAO {
+public class DBReader implements DAO {
 	public static ConnFactory cf = ConnFactory.getInstance();
 	
 	@Override
@@ -33,36 +33,45 @@ public class DBreader implements DAO {
 		ResultSet rs = st.executeQuery("SELECT * FROM USR");
 		
 		while(rs.next())
-			results.add(new User(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4)));
+			results.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4)));
 		return results;
 	}
 
 	@Override
-	public void insertCar(String make, String model, double payment, int years) throws SQLException {
+	public void insertCar(String make, String model, double payment,
+			int years, int isOwned) throws SQLException {
 		Connection conn = cf.getConnection();
-		CallableStatement cs = conn.prepareCall("{MAKE_CAR(?,?,?,?)}");
+		CallableStatement cs = conn.prepareCall("{MAKE_CAR(?,?,?,?,?)}");
 		cs.setString(1, make);
 		cs.setString(2, model);
 		cs.setDouble(3, payment);
 		cs.setInt(4, years);
+		cs.setInt(4, isOwned);
 		cs.execute();
 	}
 
 	@Override
 	public List<Car> getCars() throws SQLException {
+		List<Car> results = new ArrayList<Car>();
 		Connection conn = cf.getConnection();
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery("SELECT * FROM CAR");
 		
-		return null;
+		while(rs.next())
+			results.add(
+					new Car(rs.getInt(1), rs.getString(2), rs.getString(3),
+							rs.getDouble(4), rs.getInt(5), rs.getInt(6))
+					);
+		return results;
 	}
 
 	@Override
-	public void insertOffer(int user_id, int car_id) throws SQLException {
+	public void insertOffer(int userId, int carId, int accepted) throws SQLException {
 		Connection conn = cf.getConnection();
-		CallableStatement cs = conn.prepareCall("{MAKE_USER(?,?,?)}");
-		cs.setInt(1, user_id);
-		cs.setInt(2, car_id);
+		CallableStatement cs = conn.prepareCall("{MAKE_OFFER(?,?,?)}");
+		cs.setInt(1, userId);
+		cs.setInt(2, carId);
+		cs.setInt(3, accepted);
 		cs.execute();
 	}
 
@@ -73,11 +82,28 @@ public class DBreader implements DAO {
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery("SELECT * FROM OFFER");
 		
-		return null;
+		while(rs.next())
+			results.add(
+					new Offer(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4))
+					);
+		return results;
 	}
-  //ArrayList<User> userList = new ArrayList<User>();
-  //ArrayList<Car> carList = new ArrayList<Car>();
-  //ArrayList<Offer> offerList = new ArrayList<Offer>();
-  
-  
+
+	@Override
+	public void removeCar(int id) throws SQLException {
+		Connection conn = cf.getConnection();
+		CallableStatement cs =
+				conn.prepareCall("{DELETE FROM CAR WHERE car_id = ?}");
+		cs.setInt(1, id);
+		cs.execute();
+	}
+
+	@Override
+	public void removeOffer(int id) throws SQLException {
+		Connection conn = cf.getConnection();
+		CallableStatement cs =
+				conn.prepareCall("{DELETE FROM OFFER WHERE offer_id = ?}");
+		cs.setInt(1, id);
+		cs.execute();
+	}
 }
