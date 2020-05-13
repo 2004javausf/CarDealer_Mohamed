@@ -33,7 +33,7 @@ public class User {
 		this.id = id;
 	}
 	
-	public boolean getStatus() {
+	public boolean isAdmin() {
 		return isAdmin;	//true if admin
 	}
 	@Override
