@@ -18,7 +18,7 @@ public class DBReader implements DAO {
 	@Override
 	public void insertUser(String username, String password, int isAdmin) throws SQLException {
 		Connection conn = cf.getConnection();
-		CallableStatement cs = conn.prepareCall("{MAKE_USER(?,?,?)}");
+		CallableStatement cs = conn.prepareCall("CALL MAKE_USER(?,?,?)");
 		cs.setString(1, username);
 		cs.setString(2, password);
 		cs.setInt(3, isAdmin);
@@ -41,12 +41,12 @@ public class DBReader implements DAO {
 	public void insertCar(String make, String model, double payment,
 			int years, int isOwned) throws SQLException {
 		Connection conn = cf.getConnection();
-		CallableStatement cs = conn.prepareCall("{MAKE_CAR(?,?,?,?,?)}");
+		CallableStatement cs = conn.prepareCall("CALL MAKE_CAR(?,?,?,?,?)");
 		cs.setString(1, make);
 		cs.setString(2, model);
 		cs.setDouble(3, payment);
 		cs.setInt(4, years);
-		cs.setInt(4, isOwned);
+		cs.setInt(5, isOwned);
 		cs.execute();
 	}
 
@@ -68,7 +68,7 @@ public class DBReader implements DAO {
 	@Override
 	public void insertOffer(int userId, int carId, int accepted) throws SQLException {
 		Connection conn = cf.getConnection();
-		CallableStatement cs = conn.prepareCall("{MAKE_OFFER(?,?,?)}");
+		CallableStatement cs = conn.prepareCall("CALL MAKE_OFFER(?,?,?)");
 		cs.setInt(1, userId);
 		cs.setInt(2, carId);
 		cs.setInt(3, accepted);
@@ -93,7 +93,7 @@ public class DBReader implements DAO {
 	public void removeCar(int id) throws SQLException {
 		Connection conn = cf.getConnection();
 		CallableStatement cs =
-				conn.prepareCall("{DELETE FROM CAR WHERE car_id = ?}");
+				conn.prepareCall("DELETE FROM CAR WHERE car_id = ?");
 		cs.setInt(1, id);
 		cs.execute();
 	}
@@ -102,7 +102,7 @@ public class DBReader implements DAO {
 	public void removeOffer(int id) throws SQLException {
 		Connection conn = cf.getConnection();
 		CallableStatement cs =
-				conn.prepareCall("{DELETE FROM OFFER WHERE offer_id = ?}");
+				conn.prepareCall("DELETE FROM OFFER WHERE offer_id = ?");
 		cs.setInt(1, id);
 		cs.execute();
 	}
